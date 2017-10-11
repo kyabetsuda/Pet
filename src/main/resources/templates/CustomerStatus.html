@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/CustomerStatus" th:object="${customer}">
+	<table>
+		<tr>
+			<td><label for="customerId">顧客ID</label></td>
+			<td><div th:text="${customer.getCustomerId()}"></div>
+				<input type="hidden" name="customerId" th:value="${customer.getCustomerId()}" />
+			</td>
+		</tr>
+		<tr>
+			<td><label for="customername">名前</label></td>
+			<td><input type="text" name="customername" th:value="${customer.getCustomername()}" />
+			<div th:if="${#fields.hasErrors('customername')}" th:errors="*{customername}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="customerkn">名前かな</label></td>
+			<td><input type="text" name="customerkn" th:value="${customer.getCustomerkn()}"/>
+			<div th:if="${#fields.hasErrors('customerkn')}" th:errors="*{customerkn}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="sex">性別</label></td>
+			<td>
+				<select name="sex" th:value="${customer.getSex()}">
+					<option value="M">男</option>
+					<option value="F">女</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="postcd">郵便番号</label></td>
+			<td><input type="text" name="postcd" th:value="${customer.getPostcd()}"/>
+			<div th:if="${#fields.hasErrors('postcd')}" th:errors="*{postcd}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="address1">住所1</label></td>
+			<td><input type="text" name="address1" th:value="${customer.getAddress1()}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="address2">住所2</label></td>
+			<td><input type="text" name="address2" th:value="${customer.getAddress2()}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="address3">住所3</label></td>
+			<td><input type="text" name="address3" th:value="${customer.getAddress3()}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="address4">住所4</label></td>
+			<td><input type="text" name="address4" th:value="${customer.getAddress4()}"/>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="tel">電話番号</label></td>
+			<td><input type="text" name="tel" th:value="${customer.getTel()}"/>
+			<div th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="email">メールアドレス</label></td>
+			<td><input type="text" name="email" th:value="${customer.getEmail()}"/>
+			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="birthymd">誕生日(例:2017-03-01)</label></td>
+			<td><input type="text" name="birthymd" th:value="${customer.getBirthymd()}"/>
+			<div th:if="${#fields.hasErrors('birthymd')}" th:errors="*{birthymd}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+
+	</table>
+</form>
+
+<a href="/Customer">顧客管理画面へ</a>
+
+</body>
+</html>

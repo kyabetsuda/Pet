@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/Customer">
+	<table>
+		<tr><td><label for="name">名前</label></td>
+			<td><input type="text" name="customername" /></td></tr>
+		<tr><td></td><td><input type="submit" value="検索" /></td></tr>
+	</table>
+</form>
+
+<table>
+	<tr>
+		<th>顧客ID</th>
+		<th>顧客名</th>
+		<th>顧客名かな</th>
+		<th>性別</th>
+		<th>郵便番号</th>
+		<th>住所1</th>
+	</tr>
+	<tr th:each="obj : ${datalist}">
+		<td><a th:href="@{'/CustomerStatus/' + ${obj.getCustomerId()}}" th:text="${obj.getCustomerId()}"></a></td>
+		<td th:text="${obj.getCustomername()}"></td>
+		<td th:text="${obj.getCustomerkn()}"></td>
+		<td th:text="${obj.getSex()}"></td>
+		<td th:text="${obj.getPostcd()}"></td>
+		<td th:text="${obj.getAddress1()}"></td>
+	</tr>
+</table>
+
+<a href="/">トップへ</a>
+<a href="/CustomerRegister">新規登録</a>
+
+
+</body>
+</html>
