@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/ItemRegister" th:object="${item}">
+	<table>
+		<tr>
+			<td><label for="itemcd">商品コード</label></td>
+			<td><input type="text" name="itemcd"/>
+			<div th:if="${#fields.hasErrors('itemcd')}" th:errors="*{itemcd}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="itemnm">商品名</label></td>
+			<td><input type="text" name="itemnm"/>
+			<div th:if="${#fields.hasErrors('itemnm')}" th:errors="*{itemnm}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="itemattribute">商品属性</label></td>
+			<td>
+				<select name="itemattribute">
+					<option th:each="attribute : ${attributes}" th:value="${attribute.getItemattributeno()}" th:text="${attribute.getItemattributenm()}"></option>
+				</select>
+				<div th:if="${#fields.hasErrors('itemattribute')}" th:errors="*{itemattribute}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="itemcost">原価</label></td>
+			<td><input type="text" name="itemcost"/>
+			<div th:if="${#fields.hasErrors('itemcost')}" th:errors="*{itemcost}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="itemprice">定価</label></td>
+			<td><input type="text" name="itemprice"/>
+			<div th:if="${#fields.hasErrors('itemprice')}" th:errors="*{itemprice}" th:errorclass="err"></div>
+			</td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+
+</form>
+
+<a href="/Item">商品管理へ</a>
+
+</body>
+</html>

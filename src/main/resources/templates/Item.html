@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/Item">
+	<table>
+		<tr><td><label for="name">名前</label></td>
+			<td><input type="text" name="itemnm" /></td></tr>
+		<tr><td><input type="radio" name="itemattribute" value="all" checked="checked"/>全て</td></tr>
+		<tr th:each =" obj : ${itemattributes}">
+			<td><input type="radio" name="itemattribute" th:value="${obj.getItemattributeno()}" th:text="${obj.getItemattributenm()}" /></td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="検索" /></td></tr>
+	</table>
+</form>
+
+<table>
+	<tr>
+		<th>商品コード</th>
+		<th>商品属性</th>
+		<th>商品名</th>
+	</tr>
+	<tr th:each="obj : ${datalist}">
+		<td><a th:href="@{'/ItemStatus/' + ${obj.getItemcd()}}" th:text="${obj.getItemcd()}"></a></td>
+		<td th:text="${obj.getItemattribute()}"></td>
+		<td th:text="${obj.getItemnm()}"></td>
+	</tr>
+</table>
+
+<a href="/">トップへ</a>
+<a href="/ItemRegister">新規登録</a>
+
+</body>
+</html>

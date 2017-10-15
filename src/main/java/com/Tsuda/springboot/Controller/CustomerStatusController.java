@@ -1,5 +1,7 @@
 package com.Tsuda.springboot.Controller;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -38,6 +40,7 @@ public class CustomerStatusController {
 			BindingResult result,
 			ModelAndView mav){
 		if ( !result.hasErrors() ){
+			customer.setUpdymd(new Timestamp(System.currentTimeMillis()));
 			repository.saveAndFlush(customer);
 			mav.addObject("msg","顧客情報が登録されました。");
 		}else{

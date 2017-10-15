@@ -66,11 +66,11 @@ public class Customer {
 	private String birthymd;
 
 
-	@Column(name="INS_YMD")
-	private Timestamp insymd = new Timestamp(System.currentTimeMillis());
+	@Column(name="INS_YMD", insertable = false, updatable = false)
+	private Timestamp insymd;
 
-	@Column(name="UPD_YMD")
-	private Timestamp updymd = new Timestamp(System.currentTimeMillis());
+	@Column(name="UPD_YMD", insertable = false, updatable = true)
+	private Timestamp updymd;
 
 
 	public void setCustomerId(int customerId){
