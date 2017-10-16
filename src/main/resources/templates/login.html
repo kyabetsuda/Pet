@@ -5,17 +5,37 @@
 	<meta http-equiv="Content-Type"
 		content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
+<script>
+
+function check(){
+	var username1 = username.value;
+	var password1 = password.value;
+	if( username1 == "" ){
+		alert("ユーザ名を入力してください");
+		return false;
+	}	
+	if( password1 == "" ){
+		alert("パスワードを入力してください");
+		return false;
+	}
+	
+	return true;
+};
+</script>
 </head>
 <body>
 
 <p th:text="${msg}"></p>
 
-<form method="post" action="/login">
+<div class="alert alert-danger" role="alert" th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
+	ログインできません。
+</div>
+<form method="post" action="/login" onsubmit="return check();">
 	<table>
 		<tr><td><label for="name">名前</label></td>
-			<td><input type="text" name="username" /></td></tr>
+			<td><input type="text" name="username" id="username" /></td></tr>
 		<tr><td><label for="password">パスワード</label></td>
-			<td><input type="password" name="password" /></td></tr>
+			<td><input type="password" name="password" id="password" /></td></tr>
 		<tr><td></td><td><input type="submit" value="ログイン" /></td></tr>
 	</table>
 </form>

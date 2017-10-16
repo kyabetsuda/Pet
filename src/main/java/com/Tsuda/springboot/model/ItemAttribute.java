@@ -1,6 +1,5 @@
 package com.Tsuda.springboot.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,15 +42,6 @@ public class ItemAttribute {
 		return itemattributenm;
 	}
 
-	public void addItem(Item item) {
-        if (items == null ){
-            items = new ArrayList<>();
-        }
-
-        if (!items.contains(item))  {
-            items.add(item);
-        }
-    }
 
 	public List<Item> getItems(){
 		return items;
