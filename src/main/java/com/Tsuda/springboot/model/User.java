@@ -1,6 +1,7 @@
 package com.Tsuda.springboot.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,12 +47,12 @@ public class User implements UserDetails {
 	@Column(name="INS_YMD")
 	@Getter
 	@Setter
-	private Date insymd;
+	private Timestamp insymd;
 
 	@Column(name="UPD_YMD")
 	@Getter
 	@Setter
-	private Date updymd;
+	private Timestamp updymd;
 
 	@Column(name="authority")
 	@Enumerated(EnumType.STRING)

@@ -22,7 +22,7 @@ public class TelCheckValidator implements ConstraintValidator<TelCheck, String>{
 		}
 
 		try {
-	        Integer.parseInt(input);
+	        Long.parseLong(input);
 	        return true;
 	    } catch (NumberFormatException e) {
 	        return false;

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+$(function () {
+	$("#select1").change(function() {
+		$.ajax({
+			type: "POST",
+	        url: "/ReserveRegister/" + $("#checkinymd").val() + "/" + $("#select1").val(),
+	        success: function(msg) {
+	        		$("#select2").html(msg);
+	        }
+		});
+	});
+});
+</script>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/ReserveRegister" th:object="${reserve}">
+	<table>
+		<tr>
+			<td><label for="customerid">顧客ID</label></td>
+			<td>
+				<select>
+					<option th:each=" customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${customer.getCustomerId()}"></option> 
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="checkinymd">宿泊日</label></td>
+			<td><input type="text" name="checkinymd" id="checkinymd" /></td>
+		</tr>
+		<tr>
+			<td><label for="quantity">宿泊日数</label></td>
+			<td>
+				<select id="select1">
+					<option value="nothing">-</option>
+			        <option value="1">1</option>
+			        <option value="2">2</option>
+			        <option value="3">3</option>
+			        <option value="4">4</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<select id="select2">
+				 	<option value="nothing">-</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+</form>
+
+</body>
+</html>
