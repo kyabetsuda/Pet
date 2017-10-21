@@ -60,14 +60,6 @@ public class ReserveRegisterController {
 		
 		
 	}
-//	@RequestMapping(value="/ReserveRegister/{checkinymd}/{num}", method=RequestMethod.POST)
-//	@ResponseBody
-//	public void unko(
-//			@PathVariable("checkinymd") Date checkinymd,
-//			@PathVariable("num") int num
-//			) {
-//			return;
-//	}
 	
 	@RequestMapping(value = "/ReserveRegister/{checkinymd}/{num}", method=RequestMethod.POST)
 	@ResponseBody
@@ -76,32 +68,31 @@ public class ReserveRegisterController {
 			@PathVariable("num") int num){
 		List<Item> items = itmrepository.findByItemattribute(2);
 		//予約できない部屋を取り出す
-//		List<Reserve> reserves = impl.getReserves(checkinymd, num);
+		List<Reserve> reserves = impl.getReserves(checkinymd, num);
 		//予約リストをアイテムリストに変換する
-//		List<Sell> sells = new ArrayList<Sell>();
-//		for( Reserve reserve : reserves) {
-//			sells.add(selrepository.findBySellno(reserve.getSellno()));
-//		}
-//		List<Item> reserved = new ArrayList<Item>();
-//		for( Sell sell : sells) {
-//			reserved.add(itmrepository.findByItemcd(sell.getItemcd()));
-//		}
+		List<Sell> sells = new ArrayList<Sell>();
+		for( Reserve reserve : reserves) {
+			sells.add(selrepository.findBySellno(reserve.getSellno()));
+		}
+		List<Item> reserved = new ArrayList<Item>();
+		for( Sell sell : sells) {
+			reserved.add(itmrepository.findByItemcd(sell.getItemcd()));
+		}
 		//itemsから予約できない部屋を取り除く
-//		for( Item item : items) {
-//			for( Item reservedItem : reserved) {
-//				if( item.equals(reservedItem)) {
-//					items.remove(reservedItem);
-//				}else{
-//					continue;
-//				}
-//			}
-//		}
+		for( Item item : items) {
+			for( Item reservedItem : reserved) {
+				if( item.equals(reservedItem)) {
+					items.remove(reservedItem);
+				}else{
+					continue;
+				}
+			}
+		}
 		
 		//itemsをhtmlに変換
 		StringBuilder sb = new StringBuilder("<option value=\"nothing\">-</option>");
-
         items.stream()
-            .map(value -> String.format("<option value=\"%s\">%s</option>", value.getItemnm(), value.getItemnm()))
+            .map(value -> String.format("<option value=\"%s\">%s</option>", value.getItemcd(), value.getItemnm()))
             .forEach(option -> sb.append(option));
 		return sb.toString();
 		
