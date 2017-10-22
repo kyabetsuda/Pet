@@ -1,27 +1,26 @@
 package com.Tsuda.springboot.Controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.Tsuda.springboot.Component.ItemRepositoryCustomImpl;
 import com.Tsuda.springboot.Component.ReserveRepositoryCustomImpl;
 import com.Tsuda.springboot.Repository.CustomerRepository;
 import com.Tsuda.springboot.Repository.ItemRepository;
 import com.Tsuda.springboot.Repository.ReserveRepository;
 import com.Tsuda.springboot.Repository.SellRepository;
+import com.Tsuda.springboot.Service.MakeSell;
 import com.Tsuda.springboot.model.Customer;
 import com.Tsuda.springboot.model.Item;
 import com.Tsuda.springboot.model.Reserve;
@@ -43,7 +42,13 @@ public class ReserveRegisterController {
 	ReserveRepositoryCustomImpl impl;
 	
 	@Autowired
+	ReserveRepository resrepository;
+	
+	@Autowired
 	SellRepository selrepository;
+	
+	@Autowired
+	MakeSell makeSell;
 	
 	@PostConstruct
 	public void init() {
@@ -54,6 +59,7 @@ public class ReserveRegisterController {
 	public ModelAndView show(ModelAndView mav){
 		mav.setViewName("ReserveRegister");
 		mav.addObject("msg","予約入力");
+		mav.addObject("check",true);
 		List<Customer> customers = repository.findAll();
 		mav.addObject("customers",customers);
 		return mav;
@@ -61,10 +67,28 @@ public class ReserveRegisterController {
 		
 	}
 	
-	@RequestMapping(value = "/ReserveRegister/{checkinymd}/{num}", method=RequestMethod.POST)
+	@RequestMapping(value = "/ReserveRegister", method=RequestMethod.POST)
+	public ModelAndView register(
+			@RequestParam("customerid") int customerid,
+			@RequestParam("checkinymd") String date,
+			@RequestParam("itemcd") String itemcd,
+			@RequestParam("quantity") int quantity,
+			ModelAndView mav
+			) {
+		makeSell.makeSell(customerid, date, itemcd, quantity);
+		makeSell.makeReserve(date, quantity);
+		mav.addObject("msg","予約が登録されました");
+		mav.addObject("check",false);
+		return mav;
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/roomlist/{checkinymd}/{num}", method=RequestMethod.POST)
 	@ResponseBody
 	public String roomList(
-			@PathVariable("checkinymd") Date checkinymd,
+			@PathVariable("checkinymd") String checkinymd,
 			@PathVariable("num") int num){
 		List<Item> items = itmrepository.findByItemattribute(2);
 		//予約できない部屋を取り出す
@@ -79,13 +103,11 @@ public class ReserveRegisterController {
 			reserved.add(itmrepository.findByItemcd(sell.getItemcd()));
 		}
 		//itemsから予約できない部屋を取り除く
-		for( Item item : items) {
-			for( Item reservedItem : reserved) {
-				if( item.equals(reservedItem)) {
-					items.remove(reservedItem);
-				}else{
-					continue;
-				}
+		for( Item reservedItem : reserved) {
+			if( items.contains(reservedItem)) {
+				items.remove(reservedItem);
+			}else{
+				continue;
 			}
 		}
 		

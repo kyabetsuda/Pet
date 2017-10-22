@@ -1,7 +1,7 @@
 package com.Tsuda.springboot.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,13 +29,13 @@ public class Sell {
 	private int quantity;
 	
 	@Column(name="PRICE")
-	private BigDecimal price;
+	private String price;
 	
 	@Column(name="INCLUDING_TAX")
-	private BigDecimal includingtax;
+	private String includingtax;
 	
 	@Column(name="TAX")
-	private BigDecimal tax;
+	private String tax;
 	
 	@Column(name="INS_YMD", insertable = false, updatable = false)
 	private Timestamp insymd;
@@ -87,27 +87,27 @@ public class Sell {
 		return quantity;
 	}
 	
-	public void setPrice(BigDecimal price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return price;
 	}
 	
-	public void setIncludingtax(BigDecimal includingtax) {
+	public void setIncludingtax(String includingtax) {
 		this.includingtax = includingtax;
 	}
 	
-	public BigDecimal getIncludingtax() {
+	public String getIncludingtax() {
 		return includingtax;
 	}
 	
-	public void setTax(BigDecimal tax) {
+	public void setTax(String tax) {
 		this.tax = tax;
 	}
 	
-	public BigDecimal getTax() {
+	public String getTax() {
 		return tax;
 	}
 	

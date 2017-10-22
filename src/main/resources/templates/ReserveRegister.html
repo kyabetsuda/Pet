@@ -11,7 +11,7 @@ $(function () {
 	$("#select1").change(function() {
 		$.ajax({
 			type: "POST",
-	        url: "/ReserveRegister/" + $("#checkinymd").val() + "/" + $("#select1").val(),
+	        url: "/roomlist/" + $("#checkinymd").val() + "/" + $("#select1").val(),
 	        success: function(msg) {
 	        		$("#select2").html(msg);
 	        }
@@ -24,12 +24,12 @@ $(function () {
 
 <p th:text="${msg}"></p>
 
-<form method="post" action="/ReserveRegister" th:object="${reserve}">
+<form th:if="${check}" method="post" action="/ReserveRegister" th:object="${reserve}">
 	<table>
 		<tr>
 			<td><label for="customerid">顧客ID</label></td>
 			<td>
-				<select>
+				<select name="customerid">
 					<option th:each=" customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${customer.getCustomerId()}"></option> 
 				</select>
 			</td>
@@ -51,7 +51,7 @@ $(function () {
 			</td>
 		</tr>
 		<tr>
-			<td><label for="itemnm">ルーム番号</label></td>
+			<td><label for="itemcd">ルーム番号</label></td>
 			<td>
 				<select name="itemcd" id="select2">
 				 	<option value="nothing">-</option>
@@ -61,6 +61,8 @@ $(function () {
 		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
 	</table>
 </form>
+
+<a href="/Reserve">予約管理へ</a>
 
 </body>
 </html>

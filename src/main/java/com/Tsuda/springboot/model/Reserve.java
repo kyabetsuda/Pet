@@ -1,6 +1,6 @@
 package com.Tsuda.springboot.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -21,21 +21,21 @@ public class Reserve {
 	private Date startymd;
 	
 	@Column(name="END_YMD")
-	private Date endymd;
+	private String endymd;
 	
 	@Column(name="CHECK_IN_YMD")
-	private Date checkinymd;
+	private String checkinymd;
 	
 	@Column(name="CHECK_OUT_YMD")
-	private Date checkoutymd;
+	private String checkoutymd;
 	
 	@Column(name="SELL_NO")
 	private int sellno;
 	
-	@Column(name="INS_YMD")
+	@Column(name="INS_YMD", insertable = false, updatable = false)
 	private Timestamp insymd;
-	
-	@Column(name="UPD_YMD")
+
+	@Column(name="UPD_YMD", insertable = false, updatable = true)
 	private Timestamp updymd;
 	
 	public void setReserveid(int reserveid) {
@@ -54,27 +54,27 @@ public class Reserve {
 		return startymd;
 	}
 	
-	public void setEndymd(Date endymd) {
+	public void setEndymd(String endymd) {
 		this.endymd = endymd;
 	}
 	
-	public Date getEndymd() {
+	public String getEndymd() {
 		return endymd;
 	}
 	
-	public void setCheckinymd(Date checkinymd) {
+	public void setCheckinymd(String checkinymd) {
 		this.checkinymd = checkinymd;
 	}
 	
-	public Date getCheckinymd() {
+	public String getCheckinymd() {
 		return checkinymd;
 	}
 	
-	public void setCheckoutymd(Date checkoutymd) {
+	public void setCheckoutymd(String checkoutymd) {
 		this.checkoutymd = checkoutymd;
 	}
 	
-	public Date getCheckoutymd() {
+	public String getCheckoutymd() {
 		return checkoutymd;
 	}
 	

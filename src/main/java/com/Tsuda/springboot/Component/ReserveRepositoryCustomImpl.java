@@ -1,9 +1,8 @@
 package com.Tsuda.springboot.Component;
 
 import java.util.Date;
-import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,8 +16,7 @@ import com.Tsuda.springboot.model.Reserve;
 @Repository
 public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	private static final long serialVersionUID = 1L;
-
-
+	
 	EntityManager entityManager;
 
 	public ReserveRepositoryCustomImpl(){
@@ -30,7 +28,14 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	}
 	
 	@Override
-	public List<Reserve> getReserves(Date checkinymd, int num){
+	public List<Reserve> getReserves(String date, int num){
+		Date checkinymd = null;
+		try {
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+	        checkinymd = sd.parse(date);
+		} catch (ParseException e) {
+            e.printStackTrace();
+        }
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(checkinymd);
 		calendar.add(Calendar.DATE, num);
