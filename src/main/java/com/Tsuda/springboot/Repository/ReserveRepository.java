@@ -12,5 +12,6 @@ import com.Tsuda.springboot.model.Reserve;
 public interface ReserveRepository extends JpaRepository<Reserve, Integer>{
 
 	public List<Reserve> findAll();
+	public List<Reserve> findByCheckinymd(String checkinymd);
 	
 }

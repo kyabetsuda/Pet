@@ -12,5 +12,6 @@ import com.Tsuda.springboot.model.Reserve;
 public interface ReserveRepositoryCustom extends Serializable{
 	
 	public List<Reserve> getReserves(String date, int num);
+	public List<Reserve> getReservesToday(String date);
 
 }

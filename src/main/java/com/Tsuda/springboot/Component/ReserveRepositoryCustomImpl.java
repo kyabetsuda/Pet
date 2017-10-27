@@ -49,5 +49,15 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 		return reserves;
 	}
 	
+	@Override
+	public List<Reserve> getReservesToday(String date){
+		List<Reserve> reserves = entityManager
+				.createNativeQuery("select * from reserve where (CHECK_IN_YMD <= :date) AND (CHECK_OUT_YMD >= :date)", Reserve.class)
+				.setParameter("date", date)
+				.getResultList();
+		
+		return reserves;
+	}
+	
 
 }

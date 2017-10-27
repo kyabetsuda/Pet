@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" action="/Item">
+	<table>
+		<tr><td><label for="itemnm">部屋番号</label></td>
+			<td><input type="text" name="itemnm" /></td></tr>
+		<tr>
+			<td><input type="radio" name="reserved" value="Y" checked="checked"/>予約有り</td>
+			<td><input type="radio" name="reserved" value="N"/>予約無し</td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="stayed" th:value="Y" checked="checked" />宿泊中</td>
+			<td><input type="radio" name="stayed" th:value="N" />空室</td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="検索" /></td></tr>
+	</table>
+</form>
+
+<table>
+	<tr>
+		<th>部屋番号</th>
+		<th>予約</th>
+		<th>宿泊</th>
+		<th>顧客ID</th>
+		<th>顧客名</th>
+	</tr>
+	<tr th:each="obj : ${datalist}">
+		<td th:text="${obj[0]}"></td>
+		<td th:text="${obj[1]}"></td>
+		<td th:text="${obj[2]}"></td>
+		<td th:text="${obj[3]}"></td>
+		<td th:text="${obj[4]}"></td>
+	</tr>
+</table>
+
+<a href="/">トップへ</a>
+<a href="/Reserve">予約管理へ</a>
+
+</body>
+</html>

@@ -48,7 +48,7 @@ public class ReserveController {
 			Item item = itmrepository.findByItemcd(sell.getItemcd());
 			data.add(item.getItemnm());
 			//予約開始日、終了日
-			data.add(reserve.getStartymd().toString());
+			data.add(reserve.getStartymd());
 			data.add(reserve.getEndymd());
 			//datalistに追加
 			datalist.add(data);
