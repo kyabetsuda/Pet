@@ -18,7 +18,7 @@ public class Reserve {
 	private int reserveid;
 	
 	@Column(name="START_YMD")
-	private Date startymd;
+	private String startymd;
 	
 	@Column(name="END_YMD")
 	private String endymd;
@@ -46,11 +46,11 @@ public class Reserve {
 		return reserveid;
 	}
 	
-	public void setStartymd(Date startymd) {
+	public void setStartymd(String startymd) {
 		this.startymd = startymd;
 	}
 	
-	public Date getStartymd() {
+	public String getStartymd() {
 		return startymd;
 	}
 	

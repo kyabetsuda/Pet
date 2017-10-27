@@ -76,7 +76,7 @@ public class MakeSell {
 		calendar.add(Calendar.DATE, quantity);
 		checkout = (Date) calendar.getTime();
 		checkoutymd = sd.format(checkout);
-		reserve.setStartymd(new Date());
+		reserve.setStartymd(sd.format(new Date()));
 		reserve.setEndymd(checkoutymd);
 		reserve.setCheckinymd(date);
 		reserve.setCheckoutymd(checkoutymd);

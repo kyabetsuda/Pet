@@ -32,30 +32,36 @@ $(function () {
 				<select name="customerid">
 					<option th:each=" customer : ${customers}" th:value="${customer.getCustomerId()}" th:text="${customer.getCustomerId()}"></option> 
 				</select>
+				<div th:if="${customerIdNullCheck}">顧客IDを選択してください</div>
 			</td>
 		</tr>
 		<tr>
 			<td><label for="checkinymd">宿泊日</label></td>
-			<td><input type="text" name="checkinymd" id="checkinymd" /></td>
+			<td><input type="text" name="checkinymd" id="checkinymd" />
+				<div th:if="${dateNullCheck}">宿泊日を入力してください</div>
+				<div th:if="${datePattarnCheck}">宿泊日の形式が違います</div>
+			</td>
 		</tr>
 		<tr>
 			<td><label for="quantity">宿泊日数</label></td>
 			<td>
 				<select name="quantity" id="select1">
-					<option value="nothing">-</option>
+					<option value="">-</option>
 			        <option value="1">1</option>
 			        <option value="2">2</option>
 			        <option value="3">3</option>
 			        <option value="4">4</option>
 				</select>
+				<div th:if="${quantityNullCheck}">宿泊日数を選択してください。</div>
 			</td>
 		</tr>
 		<tr>
 			<td><label for="itemcd">ルーム番号</label></td>
 			<td>
 				<select name="itemcd" id="select2">
-				 	<option value="nothing">-</option>
+				 	<option value="">-</option>
 				</select>
+				<div th:if="${itemcdNullCheck}">商品コードを入力してください</div>
 			</td>
 		</tr>
 		<tr><td></td><td><input type="submit" value="登録" /></td></tr>

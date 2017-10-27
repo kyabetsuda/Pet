@@ -21,6 +21,7 @@ import com.Tsuda.springboot.Repository.ItemRepository;
 import com.Tsuda.springboot.Repository.ReserveRepository;
 import com.Tsuda.springboot.Repository.SellRepository;
 import com.Tsuda.springboot.Service.MakeSell;
+import com.Tsuda.springboot.Service.ReserveCheck;
 import com.Tsuda.springboot.model.Customer;
 import com.Tsuda.springboot.model.Item;
 import com.Tsuda.springboot.model.Reserve;
@@ -48,7 +49,7 @@ public class ReserveRegisterController {
 	SellRepository selrepository;
 	
 	@Autowired
-	MakeSell makeSell;
+	ReserveCheck reserveCheck;
 	
 	@PostConstruct
 	public void init() {
@@ -72,13 +73,14 @@ public class ReserveRegisterController {
 			@RequestParam("customerid") int customerid,
 			@RequestParam("checkinymd") String date,
 			@RequestParam("itemcd") String itemcd,
-			@RequestParam("quantity") int quantity,
+			@RequestParam("quantity") String quantity,
 			ModelAndView mav
 			) {
-		makeSell.makeSell(customerid, date, itemcd, quantity);
-		makeSell.makeReserve(date, quantity);
-		mav.addObject("msg","予約が登録されました");
-		mav.addObject("check",false);
+		mav.addObject("msg","予約入力");
+		List<Customer> customers = repository.findAll();
+		mav.addObject("customers",customers);
+		mav.addObject("check",true);
+		mav = reserveCheck.reserveCheck(customerid, date, itemcd, quantity, mav);
 		return mav;
 		
 		
@@ -112,7 +114,7 @@ public class ReserveRegisterController {
 		}
 		
 		//itemsをhtmlに変換
-		StringBuilder sb = new StringBuilder("<option value=\"nothing\">-</option>");
+		StringBuilder sb = new StringBuilder("<option value=\"\">-</option>");
         items.stream()
             .map(value -> String.format("<option value=\"%s\">%s</option>", value.getItemcd(), value.getItemnm()))
             .forEach(option -> sb.append(option));

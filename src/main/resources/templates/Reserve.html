@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<table>
+	<tr>
+		<th>予約番号</th>
+		<th>顧客ID</th>
+		<th>ルーム番号</th>
+		<th>予約開始日</th>
+		<th>予約終了日</th>
+	</tr>
+	<tr th:each="obj : ${datalist}">
+		<td><a th:href="@{'/ReserveStatus/' + ${obj[0]}}" th:text="${obj[0]}"></a></td>
+		<td th:text="${obj[1]}"></td>
+		<td th:text="${obj[2]}"></td>
+		<td th:text="${obj[3]}"></td>
+		<td th:text="${obj[4]}"></td>
+	</tr>
+</table>
+
+<a href="/">トップへ</a>
+<a href="/ReserveRegister">新規予約</a>
+<a href="/ReserveToday">本日の予約</a>
+
+</body>
+</html>
