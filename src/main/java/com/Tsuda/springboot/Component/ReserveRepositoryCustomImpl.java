@@ -59,5 +59,21 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 		return reserves;
 	}
 	
+	@Override
+	public List<Reserve> getSearchResult(String reserved, String stayed, String date){
+		List<Reserve> reserves = null;
+		if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
+
+		}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
+			
+		}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
+			
+		}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
+			
+		}
+		
+		return reserves;
+	}
+	
 
 }
