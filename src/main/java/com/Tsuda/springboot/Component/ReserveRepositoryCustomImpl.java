@@ -60,18 +60,29 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	}
 	
 	@Override
-	public List<Reserve> getSearchResult(String reserved, String stayed, String date){
+	public List<Reserve> getSearchResult(String itemnm, String reserved, String stayed, String date){
 		List<Reserve> reserves = null;
-		if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
-
-		}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
-			
-		}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
-			
-		}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
-			
+		if( (itemnm == null) || (itemnm == "")) {
+			if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
+	
+			}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
+				
+			}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
+				
+			}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
+				
+			}
+		}else {
+			if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
+				
+			}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
+				
+			}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
+				
+			}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
+				
+			}
 		}
-		
 		return reserves;
 	}
 	

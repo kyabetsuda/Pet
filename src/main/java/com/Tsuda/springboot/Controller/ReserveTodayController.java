@@ -50,13 +50,14 @@ public class ReserveTodayController {
 	
 	@RequestMapping(value ="/ReserveToday", method=RequestMethod.POST)
 	public ModelAndView search(
+			@RequestParam("itemnm") String itemnm,
 			@RequestParam("reserved") String reserved,
 			@RequestParam("stayed") String stayed,
 			ModelAndView mav){
 		mav.addObject("msg","本日の予約");
 		//検索条件にしたがってデータを抽出
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-		List<Reserve> reserves = impl.getSearchResult(reserved, stayed, sd.format(new Date()));
+		List<Reserve> reserves = impl.getSearchResult(itemnm, reserved, stayed, sd.format(new Date()));
 		List<List<String>> datalist = reserveList.makeList(reserves);
 		mav.addObject("datalist", datalist);
 		return mav;

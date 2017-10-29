@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" th:if="${check}" action="/ReserveStatus">
+	<table>
+		<th:block th:object="${data}">
+			<tr>
+				<td><label for="reserveid">予約ID</label></td>
+				<td><div th:text="${data[0]}"></div>
+					<input type="hidden" name="reserveid" th:value="${data[0]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">予約開始日</label></td>
+				<td><div th:text="${data[1]}"></div>
+					<input type="hidden" name="startymd" th:value="${data[1]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">予約終了日</label></td>
+				<td><div th:text="${data[2]}"></div>
+					<input type="hidden" name="endymd" th:value="${data[2]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">チェックイン日</label></td>
+				<td>
+					<input type="text" name="checkinymd" th:value="${data[3]}" />
+					<div th:if="${checkinymdNullCheck}">チェックイン日を入力してください</div>
+					<div th:if="${checkinymdPattarnCheck}">チェックイン日の形式が違います</div>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">チェックアウト日</label></td>
+				<td>
+					<input type="text" name="checkoutymd" th:value="${data[4]}" />
+					<div th:if="${checkoutymdNullCheck}">チェックアウト日を入力してください</div>
+					<div th:if="${checkoutymdPattarnCheck}">チェックアウト日の形式が違います</div>
+					<div th:if="${checkoutymdBeforeCheckinymd}">チェックアウト日がチェックイン日より先になっています</div>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">部屋番号</label></td>
+				<td><div th:text="${data[5]}"></div>
+					<input type="hidden" name="itemnm" th:value="${data[5]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">顧客ID</label></td>
+				<td><div th:text="${data[6]}"></div>
+					<input type="hidden" name="customerId" th:value="${data[6]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">顧客名</label></td>
+				<td><div th:text="${data[7]}"></div>
+					<input type="hidden" name="customername" th:value="${data[7]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">宿泊料金</label></td>
+				<td><div th:text="${data[8]}"></div>
+					<input type="hidden" name="price" th:value="${data[8]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">税金</label></td>
+				<td><div th:text="${data[9]}"></div>
+					<input type="hidden" name="tax" th:value="${data[9]}" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="">税込価格</label></td>
+				<td><div th:text="${data[10]}"></div>
+					<input type="hidden" name="includingtax" th:value="${data[10]}" />
+				</td>
+			</tr>
+		</th:block>
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+
+	</table>
+</form>
+
+<a href="/Reserve">予約管理へ</a>
+</body>
+</html>
