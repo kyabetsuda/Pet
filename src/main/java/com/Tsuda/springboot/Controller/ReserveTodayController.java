@@ -56,9 +56,9 @@ public class ReserveTodayController {
 			ModelAndView mav){
 		mav.addObject("msg","本日の予約");
 		//検索条件にしたがってデータを抽出
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List<Reserve> reserves = impl.getSearchResult(itemnm, reserved, stayed, sd.format(new Date()));
-		List<List<String>> datalist = reserveList.makeList(reserves);
+		List<List<String>> datalist = reserveList.makeSearchList(reserves);
 		mav.addObject("datalist", datalist);
 		return mav;
 	}

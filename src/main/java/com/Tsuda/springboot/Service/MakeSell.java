@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Service;
 
 import com.Tsuda.springboot.Repository.ItemRepository;
@@ -65,7 +66,7 @@ public class MakeSell {
 		Date checkinymd = null;
 		Date checkout = null;
 		String checkoutymd = null;
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			checkinymd = sd.parse(date);
 		} catch (ParseException e) {
