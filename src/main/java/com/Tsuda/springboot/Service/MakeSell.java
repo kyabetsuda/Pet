@@ -66,7 +66,7 @@ public class MakeSell {
 		Date checkinymd = null;
 		Date checkout = null;
 		String checkoutymd = null;
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			checkinymd = sd.parse(date);
 		} catch (ParseException e) {
@@ -77,10 +77,8 @@ public class MakeSell {
 		calendar.add(Calendar.DATE, quantity);
 		checkout = (Date) calendar.getTime();
 		checkoutymd = sd.format(checkout);
-		reserve.setStartymd(sd.format(new Date()));
+		reserve.setStartymd(date);
 		reserve.setEndymd(checkoutymd);
-		reserve.setCheckinymd(date);
-		reserve.setCheckoutymd(checkoutymd);
 		Sell sell = (Sell) entityManager
 				.createNativeQuery("select * from sell order by SELL_NO desc limit 1", Sell.class)
 				.getSingleResult();

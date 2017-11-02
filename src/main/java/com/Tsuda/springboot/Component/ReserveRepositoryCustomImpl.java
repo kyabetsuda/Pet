@@ -32,15 +32,6 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	@Autowired
 	ReserveTodayList  reserveList;
 	
-	@Autowired
-	ItemRepository itmrepository;
-	
-	@Autowired
-	SellRepository selrepository;
-	
-	@Autowired
-	CustomerRepository cstrepository;
-	
 	EntityManager entityManager;
 
 	public ReserveRepositoryCustomImpl(){
@@ -65,7 +56,7 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 		calendar.add(Calendar.DATE, num);
 		Date checkoutymd = (Date) calendar.getTime();
 		List<Reserve> reserves = entityManager
-				.createNativeQuery("select * from reserve where ( (DATE(CHECK_IN_YMD) <= :checkinymd) AND (DATE(CHECK_OUT_YMD) between :checkinymd AND :checkoutymd) ) OR ( (DATE(CHECK_OUT_YMD) >= :checkoutymd) AND ( DATE(CHECK_IN_YMD) between :checkinymd AND :checkoutymd)) OR ( ( DATE(CHECK_IN_YMD) <= :checkinymd) AND ( DATE(CHECK_OUT_YMD) >= :checkoutymd))",Reserve.class)
+				.createNativeQuery("select * from reserve where ( (START_YMD <= :checkinymd) AND ( END_YMD between :checkinymd AND :checkoutymd) ) OR ( ( END_YMD >= :checkoutymd ) AND ( START_YMD between :checkinymd AND :checkoutymd)) OR ( ( START_YMD <= :checkinymd) AND ( END_YMD >= :checkoutymd))",Reserve.class)
 				.setParameter("checkinymd",checkinymd)
 				.setParameter("checkoutymd",checkoutymd)
 				.getResultList();
@@ -77,7 +68,7 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	public List<Reserve> getReservesToday(String date){
 		//予約されている部屋のリスト
 		List<Reserve> reserves = entityManager
-				.createNativeQuery("select * from reserve where (DATE(CHECK_IN_YMD) <= :date) AND (DATE(CHECK_OUT_YMD) >= :date)", Reserve.class)
+				.createNativeQuery("select * from reserve where (START_YMD <= :date) AND (END_YMD >= :date)", Reserve.class)
 				.setParameter("date", date)
 				.getResultList();
 		
@@ -85,50 +76,22 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	}
 	
 	@Override
-	public List<Reserve> getSearchResult(String itemnm, String reserved, String stayed, String date){
-		List<Reserve> reserves = null;
-		if( (itemnm == null) || (itemnm == "")) {
-			if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (CHECK_IN_YMD <= :date) AND (CHECK_OUT_YMD >= :date)", Reserve.class)
+	public List<Reserve> getReservedStayed(String date){
+		List<Reserve> reserves  = entityManager
+						.createNativeQuery("select * from reserve where ( START_YMD <= :date ) AND ( END_YMD >= :date ) AND ( CHECK_IN_YMD IS NOT NULL)", Reserve.class)
 						.setParameter("date", date)
 						.getResultList();
-			}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (DATE(CHECK_IN_YMD) <= :date) AND (CHECK_IN_YMD > :date)", Reserve.class)
+
+		return reserves;
+	}
+	
+	@Override
+	public List<Reserve> getReservedNotStayed(String date){
+		List<Reserve> reserves  = entityManager
+						.createNativeQuery("select * from reserve where ( START_YMD <= :date ) AND ( END_YMD >= :date ) AND ( CHECK_IN_YMD IS NULL)", Reserve.class)
 						.setParameter("date", date)
 						.getResultList();
-			}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
-				
-			}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (DATE(CHECK_IN_YMD) > :date) AND (CHECK_OUT_YMD < :date)", Reserve.class)
-						.setParameter("date", date)
-						.getResultList();
-			}
-		}else {
-			if( (reserved.equals("Y")) && (stayed.equals("Y")) )  {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (CHECK_IN_YMD <= :date) AND (CHECK_OUT_YMD >= :date) AND (ITEM_NM = :itemnm)", Reserve.class)
-						.setParameter("date", date)
-						.setParameter("itemnm", itemnm)
-						.getResultList();
-			}else if( (reserved.equals("Y")) && (stayed.equals("N")) ) {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (DATE(CHECK_IN_YMD) <= :date) AND (CHECK_IN_YMD > :date) AND (ITEM_NM = :itemnm)", Reserve.class)
-						.setParameter("date", date)
-						.setParameter("itemnm", itemnm)
-						.getResultList();
-			}else if( (reserved.equals("N")) && (stayed.equals("Y")) ) {
-				
-			}else if( (reserved.equals("N")) && (stayed.equals("N")) ) {
-				reserves = entityManager
-						.createNativeQuery("select * from reserve where (DATE(CHECK_IN_YMD) > :date) AND (CHECK_OUT_YMD < :date) AND (ITEM_NM = :itemnm)", Reserve.class)
-						.setParameter("date", date)
-						.setParameter("itemnm", itemnm)
-						.getResultList();
-			}
-		}
+
 		return reserves;
 	}
 	

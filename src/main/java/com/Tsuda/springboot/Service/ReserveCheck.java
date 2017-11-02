@@ -31,11 +31,11 @@ public class ReserveCheck {
 			mav.addObject("dateNullCheck", true);
 			flg = false;
 		}
-//		String pattarn = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
-//		if( !date.matches(pattarn)){
-//			mav.addObject("datePattarnCheck", true);
-//			flg = false;
-//		}
+		String pattarn = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
+		if( !date.matches(pattarn)){
+			mav.addObject("datePattarnCheck", true);
+			flg = false;
+		}
 		
 		//宿泊日数チェック
 		try {

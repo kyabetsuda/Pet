@@ -1,6 +1,7 @@
 package com.Tsuda.springboot.Controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Tsuda.springboot.Component.ReserveRepositoryCustomImpl;
+import com.Tsuda.springboot.Repository.ItemRepository;
+import com.Tsuda.springboot.Repository.SellRepository;
 import com.Tsuda.springboot.Service.ReserveTodayList;
+import com.Tsuda.springboot.model.Item;
 import com.Tsuda.springboot.model.Reserve;
+import com.Tsuda.springboot.model.Sell;
 
 
 @Controller
@@ -24,6 +29,12 @@ public class ReserveTodayController {
 	
 	@Autowired
 	ReserveTodayList reserveList;
+	
+	@Autowired
+	SellRepository selrepository;
+	
+	@Autowired
+	ItemRepository itmrepository;
 	
 	@Autowired
 	ReserveRepositoryCustomImpl impl;
@@ -56,9 +67,19 @@ public class ReserveTodayController {
 			ModelAndView mav){
 		mav.addObject("msg","本日の予約");
 		//検索条件にしたがってデータを抽出
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<Reserve> reserves = impl.getSearchResult(itemnm, reserved, stayed, sd.format(new Date()));
-		List<List<String>> datalist = reserveList.makeSearchList(reserves);
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sd.format(new Date());
+		List<List<String>> datalist = new ArrayList<List<String>>();
+		List<Reserve> reserves = null;
+		if( reserved.equals("Y") && stayed.equals("Y")) {
+			reserves = impl.getReservedStayed(date);
+			datalist = reserveList.makeSearchList(reserves, itemnm);
+		}else if(reserved.equals("Y") && stayed.equals("N")) {
+			reserves = impl.getReservedNotStayed(date);
+			datalist = reserveList.makeSearchList(reserves, itemnm);
+		}else if(reserved.equals("N")) {
+			datalist = reserveList.makeNotReservedItemList(impl, itemnm);
+		}
 		mav.addObject("datalist", datalist);
 		return mav;
 	}

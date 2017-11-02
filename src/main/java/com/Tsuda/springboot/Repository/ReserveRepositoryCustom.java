@@ -13,6 +13,8 @@ public interface ReserveRepositoryCustom extends Serializable{
 	
 	public List<Reserve> getReserves(String date, int num);
 	public List<Reserve> getReservesToday(String date);
-	public List<Reserve> getSearchResult(String itemnm, String reserved, String stayed, String date);
+	public List<Reserve> getReservedStayed(String date);
+	public List<Reserve> getReservedNotStayed(String date);
+	
 
 }
