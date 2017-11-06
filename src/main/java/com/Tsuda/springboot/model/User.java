@@ -35,42 +35,62 @@ public class User implements UserDetails {
 	private int userid;
 
 	@Column(name="USER_NM", nullable=false)
-	@Setter
-	@NotEmpty
+	@NotEmpty(message="ユーザ名を入力してください")
 	private String username;
 
 	@Column(name="USER_PW", nullable=false)
-	@Setter
-	@NotEmpty
+	@NotEmpty(message="パスワードを入力してください")
 	private String password;
 
-	@Column(name="INS_YMD")
-	@Getter
-	@Setter
+	@Column(name="INS_YMD", insertable = false, updatable = false)
 	private Timestamp insymd;
 
-	@Column(name="UPD_YMD")
-	@Getter
-	@Setter
+	@Column(name="UPD_YMD", insertable = false, updatable = true)
 	private Timestamp updymd;
 
-	@Column(name="authority")
+	@Column(name="authority", insertable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
-	@Setter
 	private Authority authority;
 
 
-	@Override
-	public String getPassword() {
-		return password;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
-
-
+	
+	public int getUserid() {
+		return userid;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	@Override
 	public String getUsername() {
 		// TODO 自動生成されたメソッド・スタブ
 		return username;
 	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	@Override
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setUpdymd(Timestamp updymd) {
+		this.updymd = updymd;
+	}
+	
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+	
+
+	
+	
 
 	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

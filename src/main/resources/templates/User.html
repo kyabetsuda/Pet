@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<table>
+	<tr>
+		<th>ユーザID</th>
+		<th>ユーザ名</th>
+	</tr>
+	<tr th:each="obj : ${datalist}">
+		<td><a th:href="@{'/UserStatus/' + ${obj.getUserid()} }" th:text="${obj.getUserid()}"></a></td>
+		<td th:text="${obj.getUsername()}"></td>
+	</tr>
+</table>
+
+<a href="/UserRegister">新規登録</a>
+<a href="/">トップへ</a>
+
+</body>
+</html>

@@ -8,12 +8,12 @@
 <script>
 
 function check(){
-	var username1 = username.value;
+	var userid1 = userid.value;
 	var password1 = password.value;
-	if( username1 == "" ){
-		alert("ユーザ名を入力してください");
+	if( userid1 == "" ){
+		alert("ユーザIDを入力してください");
 		return false;
-	}	
+	}
 	if( password1 == "" ){
 		alert("パスワードを入力してください");
 		return false;
@@ -32,8 +32,8 @@ function check(){
 </div>
 <form method="post" action="/login" onsubmit="return check();">
 	<table>
-		<tr><td><label for="name">名前</label></td>
-			<td><input type="text" name="username" id="username" /></td></tr>
+		<tr><td><label for="name">ユーザID</label></td>
+			<td><input type="text" name="userid" id="userid" /></td></tr>
 		<tr><td><label for="password">パスワード</label></td>
 			<td><input type="password" name="password" id="password" /></td></tr>
 		<tr><td></td><td><input type="submit" value="ログイン" /></td></tr>

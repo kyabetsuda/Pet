@@ -16,14 +16,26 @@ public class UserInfoService implements UserDetailsService{
 	UserRepository repository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	    if (username == null || "".equals(username)) {
-	      throw new UsernameNotFoundException("Username is empty");
+	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+		int userid_int = 0;
+		
+		try {
+			userid_int = Integer.parseInt(userid);
+		}catch(Exception e){
+			
+		}
+		
+	    if ( userid == null || "".equals(userid)) {
+		    	try {
+		      throw new UsernameNotFoundException("Username is empty");
+		    	}catch(Exception e) {
+		    		System.out.println(e.getMessage());
+		    	}
 	    }
 
-	    User user = repository.findByUsername(username);
+	    User user = repository.findByUserid(userid_int);
 	    if (user == null) {
-	      throw new UsernameNotFoundException("User not found for name: " + username);
+	      throw new UsernameNotFoundException("User not found for id: " + userid);
 	    }
 
 	    return user;

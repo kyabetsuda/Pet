@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>top page</title>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:text="${msg}"></p>
+
+<form method="post" th:if="${check}" action="/UserRegister" th:object="${user}">
+	<table>
+		<tr>
+			<td><label for="username">ユーザー名</label></td>
+			<td>
+				<input type="text" name="username"/>
+				<div th:if="${usernameNullCheck}">ユーザ名を入力してください</div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="password">パスワード</label></td>
+			<td>
+				<input type="password" name="password"/>
+				<div th:if="${passwordNullCheck}">パスワードを入力してください</div>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="confirmation">パスワード確認</label></td>
+			<td>
+				<input type="password" name="confirmation"/>
+				<div th:if="${confirmationCheck}">パスワードと確認パスワードが違います</div>
+ 			</td>
+		</tr>
+		
+		<tr><td></td><td><input type="submit" value="登録" /></td></tr>
+	</table>
+
+</form>
+
+<a href="/User">ユーザー管理へ</a>
+
+</body>
+</html>

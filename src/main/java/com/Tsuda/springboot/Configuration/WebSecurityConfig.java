@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             //ログイン成功時の遷移先url
             .defaultSuccessUrl("/", false)
             // usernameのパラメタ名
-            .usernameParameter("username")
+            .usernameParameter("userid")
             // passwordのパラメタ名
             .passwordParameter("password")
             .permitAll()
