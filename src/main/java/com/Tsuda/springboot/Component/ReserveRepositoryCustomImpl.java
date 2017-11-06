@@ -18,7 +18,6 @@ import com.Tsuda.springboot.Repository.CustomerRepository;
 import com.Tsuda.springboot.Repository.ItemRepository;
 import com.Tsuda.springboot.Repository.ReserveRepositoryCustom;
 import com.Tsuda.springboot.Repository.SellRepository;
-import com.Tsuda.springboot.Service.ReserveComparator;
 import com.Tsuda.springboot.Service.ReserveTodayList;
 import com.Tsuda.springboot.model.Customer;
 import com.Tsuda.springboot.model.Item;

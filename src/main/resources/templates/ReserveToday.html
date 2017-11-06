@@ -35,11 +35,11 @@
 		<th>顧客名</th>
 	</tr>
 	<tr th:each="obj : ${datalist}">
-		<td th:text="${obj[0]}"></td>
-		<td th:text="${obj[1]}"></td>
-		<td th:text="${obj[2]}"></td>
-		<td th:text="${obj[3]}"></td>
-		<td th:text="${obj[4]}"></td>
+		<td th:text="${obj.getItemnm()}"></td>
+		<td th:text="${obj.getReserved()}"></td>
+		<td th:text="${obj.getStayed()}"></td>
+		<td th:text="${obj.getCustomerid()}"></td>
+		<td th:text="${obj.getCustomernm()}"></td>
 	</tr>
 </table>
 

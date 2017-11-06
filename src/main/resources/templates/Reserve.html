@@ -19,11 +19,11 @@
 		<th>予約終了日</th>
 	</tr>
 	<tr th:each="obj : ${datalist}">
-		<td><a th:href="@{'/ReserveStatus/' + ${obj[0]}}" th:text="${obj[0]}"></a></td>
-		<td th:text="${obj[1]}"></td>
-		<td th:text="${obj[2]}"></td>
-		<td th:text="${obj[3]}"></td>
-		<td th:text="${obj[4]}"></td>
+		<td><a th:href="@{'/ReserveStatus/' + ${obj.getReserveid()} }" th:text="${obj.getReserveid()}"></a></td>
+		<td th:text="${obj.getCustomerid()}"></td>
+		<td th:text="${obj.getItemnm()}"></td>
+		<td th:text="${obj.getStartymd()}"></td>
+		<td th:text="${obj.getEndymd()}"></td>
 	</tr>
 </table>
 
