@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,7 +59,7 @@ public class ReserveRegisterController {
 	}
 	
 	@RequestMapping(value ="/ReserveRegister", method=RequestMethod.GET)
-	public ModelAndView show(ModelAndView mav){
+	public ModelAndView show(ModelAndView mav) throws JSONException{
 		mav.setViewName("ReserveRegister");
 		mav.addObject("msg","予約入力");
 		mav.addObject("check",true);
@@ -91,7 +93,7 @@ public class ReserveRegisterController {
 	@ResponseBody
 	public String roomList(
 			@PathVariable("checkinymd") String checkinymd,
-			@PathVariable("num") int num){
+			@PathVariable("num") int num) throws JSONException{
 		List<Item> items = itmrepository.findByItemattribute(2);
 		//予約できない部屋を取り出す
 		List<Reserve> reserves = impl.getReserves(checkinymd, num);
@@ -113,12 +115,55 @@ public class ReserveRegisterController {
 			}
 		}
 		
+		StringBuilder s = new StringBuilder();
+	    String str="";
+	    s.append("[");
+	    for(Item item : items){
+	        s.append("{");
+	        s.append("\"");
+	        s.append("itemcd");
+	        s.append("\"");
+	        
+	        s.append(":");
+	        
+	        s.append("\"");
+	        s.append(item.getItemcd());
+	        s.append("\"");
+	        
+	        s.append(",");
+	        
+	        s.append("\"");
+	        s.append("itemnm");
+	        s.append("\"");
+	        
+	        s.append(":");
+	        
+//	        s.append("\"}");
+	        
+	        s.append("\"");
+	        s.append(item.getItemnm());
+	        s.append("\"");
+	        
+//	        s.append("\"}");
+	        s.append("}");
+	        s.append(",");
+	    }
+
+	    //末尾のカンマを削除し、[{}]でくくった形になるようにしてStringに変換する
+	    s.deleteCharAt(s.lastIndexOf(","));
+	    s.append("]");
+	    str = s.toString();
+
+	    return str;
+		
+		
+		
 		//itemsをhtmlに変換
-		StringBuilder sb = new StringBuilder("<option value=\"\">-</option>");
-        items.stream()
-            .map(value -> String.format("<option value=\"%s\">%s</option>", value.getItemcd(), value.getItemnm()))
-            .forEach(option -> sb.append(option));
-		return sb.toString();
+//		StringBuilder sb = new StringBuilder("<option value=\"\">-</option>");
+//        items.stream()
+//            .map(value -> String.format("<option value=\"%s\">%s</option>", value.getItemcd(), value.getItemnm()))
+//            .forEach(option -> sb.append(option));
+//		return sb.toString();
 		
 	} 
 

@@ -12,8 +12,12 @@ $(function () {
 		$.ajax({
 			type: "POST",
 	        url: "/roomlist/" + $("#checkinymd").val() + "/" + $("#select1").val(),
-	        success: function(msg) {
-	        		$("#select2").html(msg);
+	        success: function(data) {
+	        		var obj = $.parseJSON(data);
+	        		$("#select2").html("");
+	        		for(var i in obj){
+	                    $("#select2").append("<option value="+obj[i].itemcd+">"+obj[i].itemnm+"</option>");
+	            	}
 	        }
 		});
 	});
