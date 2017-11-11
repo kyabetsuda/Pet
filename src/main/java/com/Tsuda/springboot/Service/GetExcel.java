@@ -36,11 +36,35 @@ import com.Tsuda.springboot.model.ReserveTodayListEntity;
 @Service
 public class GetExcel {
 	
+	@Autowired
+	ReserveTodayListWithJdbc withJdbc;
+	
 	public void getExcel(
 			HttpServletRequest request,
-			HttpServletResponse response,
-			List<ReserveTodayListEntity> rooms
+			HttpServletResponse response
 			) throws FileNotFoundException, IOException {
+		HttpSession session = request.getSession(false);
+		List<ReserveTodayListEntity> rooms = new ArrayList<ReserveTodayListEntity>();
+		
+		String itemnm = null;
+		String reserved = null;
+		String stayed = null;
+		if( session == null) {
+			session = request.getSession(true);
+			itemnm = (String)session.getAttribute("itemnm");
+			reserved = (String)session.getAttribute("reserved");
+			stayed = (String)session.getAttribute("stayed");
+		}else {
+			itemnm = (String)session.getAttribute("itemnm");
+			reserved = (String)session.getAttribute("reserved");
+			stayed = (String)session.getAttribute("stayed");
+		}
+		
+		if( reserved == null ) {
+			rooms = withJdbc.makeList();
+		}else {
+			rooms = withJdbc.getSearchResult(itemnm, reserved, stayed);
+		}
 
         HSSFWorkbook book = null;
         OutputStream outputStream = null;

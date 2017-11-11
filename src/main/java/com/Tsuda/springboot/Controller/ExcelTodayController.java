@@ -34,7 +34,6 @@ public class ExcelTodayController {
 
 	@RequestMapping(value ="/ExcelToday", method=RequestMethod.GET)
 	public ModelAndView show(ModelAndView mav){
-		
 		mav.setViewName("ExcelToday");
 		return mav;
 	}
@@ -44,31 +43,7 @@ public class ExcelTodayController {
 			HttpServletRequest request,
 			HttpServletResponse response			
 			) throws FileNotFoundException, IOException{
-		HttpSession session = request.getSession(false);
-		List<ReserveTodayListEntity> rooms = new ArrayList<ReserveTodayListEntity>();
-		
-		String itemnm = null;
-		String reserved = null;
-		String stayed = null;
-		if( session == null) {
-			session = request.getSession(true);
-			itemnm = (String)session.getAttribute("itemnm");
-			reserved = (String)session.getAttribute("reserved");
-			stayed = (String)session.getAttribute("stayed");
-		}else {
-			itemnm = (String)session.getAttribute("itemnm");
-			reserved = (String)session.getAttribute("reserved");
-			stayed = (String)session.getAttribute("stayed");
-		}
-		
-		if( reserved == null ) {
-			rooms = withJdbc.makeList();
-		}else {
-			rooms = withJdbc.getSearchResult(itemnm, reserved, stayed);
-		}
-		
-		getExcel.getExcel(request, response, rooms);
-		
+		getExcel.getExcel(request, response);	
 	}
 	
 }
