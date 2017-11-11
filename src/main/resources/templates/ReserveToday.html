@@ -26,23 +26,24 @@
 	</table>
 </form>
 
-<table>
-	<tr>
-		<th>部屋番号</th>
-		<th>予約</th>
-		<th>宿泊</th>
-		<th>顧客ID</th>
-		<th>顧客名</th>
-	</tr>
-	<tr th:each="obj : ${datalist}">
-		<td th:text="${obj.getItemnm()}"></td>
-		<td th:text="${obj.getReserved()}"></td>
-		<td th:text="${obj.getStayed()}"></td>
-		<td th:text="${obj.getCustomerid()}"></td>
-		<td th:text="${obj.getCustomernm()}"></td>
-	</tr>
-</table>
+	<table>
+		<tr>
+			<th>部屋番号</th>
+			<th>予約</th>
+			<th>宿泊</th>
+			<th>顧客ID</th>
+			<th>顧客名</th>
+		</tr>
+		<tr th:each="obj : ${datalist}">
+			<td th:text="${obj.getItemnm()}"></td>
+			<td th:text="${obj.getReserved()}"></td>
+			<td th:text="${obj.getStayed()}"></td>
+			<td th:text="${obj.getCustomerid()}"></td>
+			<td th:text="${obj.getCustomernm()}"></td>
+		</tr>
+	</table>
 
+<a href="/ExcelToday">検索結果をエクセルに出力</a>
 <a href="/">トップへ</a>
 <a href="/Reserve">予約管理へ</a>
 

@@ -28,8 +28,6 @@ import com.Tsuda.springboot.model.Sell;
 public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
-	ReserveTodayList  reserveList;
 	
 	EntityManager entityManager;
 
