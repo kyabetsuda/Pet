@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // passwordのパラメタ名
             .passwordParameter("password")
             .permitAll()
+//            .failureHandler(new PetAuthenticationFailureHandler())
         .and()
           // ログアウト処理の設定
           .logout()

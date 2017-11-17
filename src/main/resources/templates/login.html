@@ -27,8 +27,8 @@ function check(){
 
 <p th:text="${msg}"></p>
 
-<div class="alert alert-danger" role="alert" th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
-	ログインできません。
+<div class="alert alert-danger" role="alert" th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+	th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
 </div>
 <form method="post" action="/login" onsubmit="return check();">
 	<table>
