@@ -26,24 +26,24 @@ import com.Tsuda.springboot.model.ReserveTodayListEntity;
 @Controller
 public class ExcelTodayController {
 	
-	@Autowired
-	ReserveTodayListWithJdbc withJdbc;
-	
-	@Autowired
-	GetExcel getExcel;
-
-	@RequestMapping(value ="/ExcelToday", method=RequestMethod.GET)
-	public ModelAndView show(ModelAndView mav){
-		mav.setViewName("ExcelToday");
-		return mav;
-	}
-	
-	@RequestMapping(value ="/ExcelToday", method=RequestMethod.POST)
-	public void getExcel(
-			HttpServletRequest request,
-			HttpServletResponse response			
-			) throws FileNotFoundException, IOException{
-		getExcel.getExcel(request, response);	
-	}
+//	@Autowired
+//	ReserveTodayListWithJdbc withJdbc;
+//	
+//	@Autowired
+//	GetExcel getExcel;
+//
+//	@RequestMapping(value ="/ExcelToday", method=RequestMethod.GET)
+//	public ModelAndView show(ModelAndView mav){
+//		mav.setViewName("ExcelToday");
+//		return mav;
+//	}
+//	
+//	@RequestMapping(value ="/ExcelToday", method=RequestMethod.POST)
+//	public void getExcel(
+//			HttpServletRequest request,
+//			HttpServletResponse response			
+//			) throws FileNotFoundException, IOException{
+//		getExcel.getExcel(request, response);	
+//	}
 	
 }

@@ -5,6 +5,10 @@
 	<meta http-equiv="Content-Type"
 		content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
+<!-- <script src="http://localhost:8080/js/encoding.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://localhost:8080/js/tabletocsv.js"></script>
+
 </head>
 <body>
 
@@ -26,24 +30,25 @@
 	</table>
 </form>
 
-	<table>
-		<tr>
-			<th>部屋番号</th>
-			<th>予約</th>
-			<th>宿泊</th>
-			<th>顧客ID</th>
-			<th>顧客名</th>
-		</tr>
-		<tr th:each="obj : ${datalist}">
-			<td th:text="${obj.getItemnm()}"></td>
-			<td th:text="${obj.getReserved()}"></td>
-			<td th:text="${obj.getStayed()}"></td>
-			<td th:text="${obj.getCustomerid()}"></td>
-			<td th:text="${obj.getCustomernm()}"></td>
-		</tr>
+	<table id="nameTable">
+			<tr>
+				<th>部屋番号</th>
+				<th>予約</th>
+				<th>宿泊</th>
+				<th>顧客ID</th>
+				<th>顧客名</th>
+			</tr>
+			<tr th:each="obj : ${datalist}">
+				<td th:text="${obj.getItemnm()}"></td>
+				<td th:text="${obj.getReserved()}"></td>
+				<td th:text="${obj.getStayed()}"></td>
+				<td th:text="${obj.getCustomerid()}"></td>
+				<td th:text="${obj.getCustomernm()}"></td>
+			</tr>
 	</table>
-
-<a href="/ExcelToday">検索結果をエクセルに出力</a>
+	
+<!-- <a href="#" id="download" download="test.csv">CSVダウンロード</a> -->
+<a id="download" href="#" download="today.csv" onclick="handleDownload()">検索結果をダウンロード</a>
 <a href="/">トップへ</a>
 <a href="/Reserve">予約管理へ</a>
 
