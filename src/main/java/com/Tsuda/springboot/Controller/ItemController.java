@@ -56,25 +56,8 @@ public class ItemController {
 			@RequestParam("itemnm") String itemnm,
 			@RequestParam("itemattribute") String itemattribute,
 			ModelAndView mav){
-		if( itemnm == "" ) {
-			if( itemattribute.equals("all") ) {
-				List<Item> items = itmRepository.findAll();
-				mav.addObject("datalist", items);
-			}else {
-				int attribute = Integer.parseInt(itemattribute);
-				List<Item> items = itmRepository.findByItemattribute(attribute);
-				mav.addObject("datalist", items);
-			}
-		}else {
-			if( itemattribute.equals("all") ) {
-				List<Item> items = itmRepository.findByItemnm(itemnm);
-				mav.addObject("datalist", items);
-			}else {
-				List<Item> items = impl.search(itemnm, itemattribute);
-				mav.addObject("datalist", items);
-			}
-		}
-		
+		List<Item> items = impl.search(itemnm, itemattribute);
+		mav.addObject("datalist", items);
 		List<ItemAttribute> itemAttributes = repository.findAll();
 		mav.addObject("msg","商品管理");
 		mav.addObject("itemattributes", itemAttributes);
